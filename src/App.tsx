@@ -18,6 +18,7 @@ import {
 import "./App.css";
 import { UserResponseList } from "./components/UserResponseList";
 import { customThemes } from "./themes/customThemes";
+import { Counter } from "./components/counter/Counter";
 
 const Heading1 = styled.h1`
   font-family: ${fontFamily("default")};
@@ -55,6 +56,7 @@ function App() {
   return (
     <ThemeProvider activeTheme="base" themes={customThemes}>
       <main>
+        <Counter />
         <Heading1>Louis example form</Heading1>
 
         {submitted && tShirtSize && (

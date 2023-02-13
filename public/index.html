@@ -19,6 +19,40 @@
   </head>
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
+    <div>
+      Native JS:
+      <span id="native-counter"></span>
+      <script>
+        function waitForStore() {
+          function waitForStoreInitialized(resolve) {
+            if ("store" in window && window.store) {
+              resolve(window.store);
+            } else {
+              setTimeout(() => waitForStoreInitialized(resolve), 50);
+            }
+          }
+
+          return new Promise(waitForStoreInitialized);
+        }
+
+        function selectCount(state) {
+          return state.counter.value;
+        }
+
+        function updateNativeCounterElement(count) {
+          document.getElementById("native-counter").textContent = count;
+        }
+
+        waitForStore().then((store) => {
+          store.subscribe(() =>
+            updateNativeCounterElement(selectCount(store.getState()))
+          );
+
+          updateNativeCounterElement(selectCount(store.getState()));
+        });
+      </script>
+    </div>
+    <hr />
     <div id="root"></div>
   </body>
 </html>
